@@ -1,63 +1,94 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ContentApi } from '../context/ContentApi';
+import { Text, useToast } from '@chakra-ui/react';
+import { FaSearch } from 'react-icons/fa';
+import { Input, InputGroup, InputRightElement, Flex, Box, List, ListItem } from '@chakra-ui/react';
 
 const Navbar = () => {
-  const navStyle = {
-    backgroundColor: '#ed7f1a',
-    padding: '10px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  };
+  const toast = useToast();
 
-  const navListStyle = {
-    listStyleType: 'none',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 0,
-    padding: 0,
-  };
+  const { logindata, setloginData } = useContext(ContentApi);
 
-  const navItemStyle = {
-    margin: '0 10px',
-  };
+  let val = JSON.parse(localStorage.getItem('log'));
+  let val2 =JSON.parse(localStorage.getItem("admin"))
+  const handlelogout = () => {
+    localStorage.removeItem('log');
+    localStorage.removeItem("admin")
+    setloginData({});
 
-  const navLinkStyle = {
-    textDecoration: 'none',
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: '16px',
-    transition: 'color 0.3s ease',
-  };
-
-  const activeLinkStyle = {
-    color: '#f0f0f0',
+    toast({
+      title: 'Success',
+      description: 'Logout Successfully',
+      status: 'error',
+      duration: 1000,
+      position: 'top',
+      isClosable: true,
+    });
   };
 
   return (
-    <nav style={navStyle}>
-      <Link to="/" style={navLinkStyle}>
-        <h1 style={{ margin: 0 }}>Zusty Zomato</h1>
+    <Flex bg="#ed7f1a" p="1%" justifyContent="space-between" alignItems="center">
+      <Link to="/" textDecoration="none">
+        <Text as="h1" fontWeight={"700"} fontSize="1.8rem" color="#fff">
+          Zusty Zomato
+        </Text>
       </Link>
-      <ul style={navListStyle}>
-        <li style={navItemStyle}>
-          <Link to="/" style={navLinkStyle} activeStyle={activeLinkStyle}>Home</Link>
-        </li>
-        <li style={navItemStyle}>
-          <Link to="/order" style={navLinkStyle} activeStyle={activeLinkStyle}>Orders</Link>
-        </li>
-        <li style={navItemStyle}>
-          <Link to="/login" style={navLinkStyle} activeStyle={activeLinkStyle}>Login</Link>
-        </li>
-        <li style={navItemStyle}>
-          <Link to="/signup" style={navLinkStyle} activeStyle={activeLinkStyle}>Signup</Link>
-        </li>
-        <li style={navItemStyle}>
-          <Link to="/admin" style={navLinkStyle} activeStyle={activeLinkStyle}>Admin</Link>
-        </li>
-      </ul>
-    </nav>
+      <InputGroup w="250px">
+        <Input type="text" borderRadius="9999px" bg="#fff" fontSize="16px" placeholder="Search" />
+        <InputRightElement h="100%" children={<FaSearch color="#999" />} />
+      </InputGroup>
+      <List display="flex" justifyContent="center" alignItems="center" margin={0} padding={0}>
+        {val && val[1].name ? (
+          <ListItem margin="0 10px">
+            <Link to="/" >
+            <Text textDecoration="none" color="#fff" fontWeight="bold"> {val[1].name}</Text>
+             
+            </Link>
+          </ListItem>
+        ) : null}
+
+        {val2 && val2[1] ? (
+          <ListItem margin="0 10px">
+            <Link to="/" >
+            <Text textDecoration="none" color="#fff" fontWeight="bold"> {val2[1]}</Text>
+             
+            </Link>
+          </ListItem>
+        ) : null}
+
+        <ListItem margin="0 10px">
+          <Link to="/order" textDecoration="none" color="#fff" fontWeight="bold">
+          <Text textDecoration="none" color="#fff" fontWeight="bold"> Order</Text>
+          </Link>
+        </ListItem>
+        {val || val2 ? (
+          <ListItem margin="0 10px">
+            <Text
+              textDecoration="none"
+              color="#fff"
+              fontWeight="bold"
+              cursor="pointer"
+              onClick={handlelogout}
+            >
+              Logout
+            </Text>
+          </ListItem>
+        ) : (
+          <ListItem margin="0 10px">
+            <Link to="/login" >
+            <Text textDecoration="none" color="#fff" fontWeight="bold"> Login</Text>
+            </Link>
+          </ListItem>
+        )}
+        {val2 && val2[1]?<ListItem margin="0 10px">
+          <Link to="/admin" >
+          <Text textDecoration="none" color="#fff" fontWeight="bold">Admin</Text>
+          </Link>
+        </ListItem>:""}
+        
+      </List>
+    </Flex>
   );
 };
 

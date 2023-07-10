@@ -19,6 +19,7 @@ import {
   Flex,
   IconButton, 
   Image,
+  useToast,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
@@ -45,12 +46,13 @@ function InitialFocus() {
   const initialRef =useRef(null);
 
 
+  let url="https://zomato-kj4c.onrender.com"
 
   const [menuItems, setMenuItems] = useState([]);
 
   async function fetchData() {
     try {
-      const response = await axios.get('http://127.0.0.1:8080/menu');
+      const response = await axios.get(`${url}/menu`);
 
       setMenuItems(response.data);
     } catch (error) {
@@ -67,14 +69,22 @@ const {name,value}=e.target
 setdata({...data,[name]:value})
 
 }
-
+const toast=useToast()
 
 const handlesubmit=(e)=>{
 e.preventDefault()
 
-axios.post(`http://localhost:8080/addDish`,data)
+axios.post(`${url}/addDish`,data)
 .then((res)=>{
   fetchData()
+  toast({
+    title: 'Success',
+    description: res.data,
+    status: 'success',
+    duration: 1000,
+    position:"top",
+    isClosable: true,
+  })
 })
 
 setdata(init)
@@ -92,7 +102,7 @@ const handlesubmit1 = (e, id) => {
   e.preventDefault();
 
   axios
-    .patch(`http://localhost:8080/updateDish/${data1._id}`, data1)
+    .patch(`${url}/updateDish/${data1._id}`, data1)
     .then((res) => {
       fetchData()
     })
@@ -122,7 +132,7 @@ const handlesubmit1 = (e, id) => {
   };
   
 const handleDelete=(id)=>{
-axios.delete(`http://localhost:8080/delete/${id}`)
+axios.delete(`${url}/delete/${id}`)
 .then((res)=>{
   fetchData()
 })
@@ -134,7 +144,7 @@ axios.delete(`http://localhost:8080/delete/${id}`)
 
   return (
      <Box>
-      <Button onClick={handleOpenModal}>Add a new Dish</Button>
+      <Button w="30%" mt="1%" mb="2%" bg="#68A3DB" color="white" onClick={handleOpenModal}>Add a new Dish</Button>
 
 <Modal
   initialFocusRef={initialRef}

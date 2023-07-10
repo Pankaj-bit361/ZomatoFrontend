@@ -4,6 +4,7 @@ import Loader from './components/Loader';
 import { useEffect, useState } from 'react';
 import Signup from './Pages/Signup';
 import AllData from './Pages/AllData';
+import { Chatbot } from './components/Chatbot';
 
 
 
@@ -39,6 +40,7 @@ return ()=>{
      <AllData/>
     
      }
+    
     </div>
   );
 }

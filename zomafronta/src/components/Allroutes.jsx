@@ -5,6 +5,8 @@ import Login from '../Pages/Login';
 import Signup from '../Pages/Signup';
 import Admin from '../Pages/Admin';
 import Order from '../Pages/Order';
+import PrivateRoute from './PrivateRoute';
+import { Chatbot } from './Chatbot';
 
 
 const Allroutes = () => {
@@ -17,9 +19,10 @@ const Allroutes = () => {
             
         <Route path="/signup" element={<Signup />}/>
 
-        <Route path="/order" element={<Order/>}/>
+        <Route path="/order" element={<PrivateRoute><Order/></PrivateRoute>}/>
         
         <Route path="/admin" element={<Admin />}/>
+        <Route path="/chatbot" element={<Chatbot />}/>
    
     </Routes>
   );
