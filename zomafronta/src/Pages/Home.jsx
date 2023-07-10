@@ -58,8 +58,7 @@ axios.post(`${url}/order`,ob)
 
  }
 
- console.log(process.env.key)
- console.log(process.env.port)
+
 
   return (
     <div  className={styles.container}>
