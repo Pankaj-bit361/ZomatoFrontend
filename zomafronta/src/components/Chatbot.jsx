@@ -28,7 +28,7 @@ export const Chatbot = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+            Authorization: `Bearer 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`,
           },
         }
       );
@@ -48,7 +48,7 @@ export const Chatbot = () => {
   };
   
   return (
-    <Box mb={10}>y
+    <Box mb={10}>
       <Flex className="chat">
         <Flex alignItems="center" className="avatar" />
       </Flex>

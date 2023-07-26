@@ -57,6 +57,7 @@ const handledelete=()=>{
   })
 }
 
+
 const handlechange = async (e) => {
   setstatus((prev) => prev = e.target.value);
 
@@ -64,9 +65,9 @@ const handlechange = async (e) => {
     const response = await axios.patch(`${url}/updateOrder/${_id}/${e.target.value}`);
     const data = response.data;
     setstate(!state)
-    // Handle the response data as needed
+    
   } catch (error) {
-    // Handle error
+  
     console.error(error);
   }
 };

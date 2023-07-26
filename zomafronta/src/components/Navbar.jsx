@@ -62,6 +62,13 @@ const Navbar = () => {
           <Text textDecoration="none" color="#fff" fontWeight="bold"> Order</Text>
           </Link>
         </ListItem>
+
+        {val && val[1]?<ListItem margin="0 10px">
+          <Link to="/track" >
+          <Text textDecoration="none" color="#fff" fontWeight="bold">Track Order</Text>
+          </Link>
+        </ListItem>:""}
+
         {val || val2 ? (
           <ListItem margin="0 10px">
             <Text

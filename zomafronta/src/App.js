@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import Signup from './Pages/Signup';
 import AllData from './Pages/AllData';
 import { Chatbot } from './components/Chatbot';
+import Loader2 from './components/Loader2';
+import Successfull from './Pages/Succesfull';
 
 
 
@@ -40,6 +42,7 @@ return ()=>{
      <AllData/>
     
      }
+   
     
     </div>
   );
